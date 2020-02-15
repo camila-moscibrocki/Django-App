@@ -14,5 +14,14 @@ def setacookie(request):
 
     return response
 
-def redireciona(request):
-    return HttpResponseRedirect('https://theuselessweb.site/bees/oprahbees.gif')
+#def redireciona(request):
+#    return HttpResponseRedirect('https://http.cat/')
+
+def cat_status(request, code):
+    return HttpResponseRedirect(f'https://http.cat/{code}')
+
+def show_get_values(request):
+    import ipdb; ipdb.set_trace()
+    nome = "Camila"
+    html = f"<h1>Bem vindx {request.GET['nome']}</h1>"
+    return HttpResponse(html)

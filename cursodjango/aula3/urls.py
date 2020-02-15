@@ -1,8 +1,12 @@
-from django.urls import path, include
-from .views import index, setacookie, redireciona
+from django.urls import path
+from .views import index, setacookie
+from . import views
+
+app_name = "aula3"
 
 urlpatterns =[
-   path('', index),
+    path('', index),
     path('cookie', setacookie),
-    path('uol', redireciona)
+    path('cat/<int:code>', views.cat_status),
+    path('get/', views.show_get_values),
 ]
