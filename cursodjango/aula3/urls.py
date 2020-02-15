@@ -9,4 +9,5 @@ urlpatterns =[
     path('cookie', setacookie),
     path('cat/<int:code>', views.cat_status),
     path('get/', views.show_get_values),
+    path('post/', views.show_post_values),
 ]
