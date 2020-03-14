@@ -1,6 +1,11 @@
 from django import forms
 from .models import Pet
 
+def external_valid_names(name):
+    if name == rex:
+        return False
+    return True
+
 class PetForm(forms.ModelForm):
 
     def clean_nome(self):
