@@ -7,11 +7,13 @@ from aula6.views import index as index6
 from aula7.views import index as index7
 from aula7.views import restrita, logout_view, permission_view
 from aula9.views import index9
+from aula10.views import mostra_arquivo_estatico
 
 urlpatterns =[
     path('admin/', admin.site.urls),
     path('', include("aula3.urls")),
-    path('aula4', index),
+    path('estatico', mostra_arquivo_estatico),
+    path('aula10', mostra_arquivo_estatico),
     path('aula6', index6),
     path('entrar', index7, name='login'),
     path('aula7/restrita', restrita),
