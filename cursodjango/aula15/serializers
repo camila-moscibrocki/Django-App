@@ -1,0 +1,67 @@
+from rest_framework import serializers
+from django.db import transaction
+
+
+class MyCustomSerializer(serializers.Serializer):
+
+    choices = (
+        ('M', 'masculino')
+        ('F', 'feminino')
+    )
+
+
+    name = serializers.CharField(max_lenght=30)
+    email = serializers.EmailField()
+    text = serializers.CharField(max_lenght=500)
+
+
+    def validate_email(self, value):
+        if 'guilherme' in value.lower():
+            raise serializers.ValidationError('gUilherme está príbido!')
+        return value
+
+    def validate_text (self, value):
+        if 'xominini' in value.lower():
+            raise serializers.ValidatioErros("Pouco xumis, muito ninis")
+        return value
+
+class AdressSerializer(serializers.Serializer):
+    street = serializers.CharField(max_lenght=30)
+    number = serializers.IntegerField()
+    neighborhood = serializers.CHarField(max_length=30)
+    city = serializers.CharField(max_lenght=30)
+    country = serializers.CharField(max_lenght=30)
+    adress_type = serializers.ChoiceField(choices)
+
+class ClientSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=30)
+    phone = serializers.CharField(max_length=38)
+    adress = AdressSerializer(required=True, many=True)
+
+    def create(self, *args, **kwargs):
+        return self.validated_data)
+
+from django.contrib.auth.models import User, Permission
+
+
+class PermissionSerializer(serializer.ModelSerializer):
+
+    class Meta:
+        model = Permission
+        fields = "__all__"
+
+
+
+class UserSerializer(serializers.ModelSerializer):
+    permissions = Permission(required=True)
+
+    class Meta:
+        model = User
+        exclude = ["permission"]
+
+    def create(self, data, *args, **kwargs):
+        with transaction.atomic():
+            user = User.objects.create(username=data['username'])
+            permission = Permission.objects.create(**data)
+            user.user_permissions.add(permission)
+        return self.validated_data

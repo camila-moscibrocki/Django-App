@@ -1,10 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
 
+# Create your tests here.
+
 class TestLogoutView(TestCase):
 
     def setUp(self):
-        self.url = reverse("aula7")
+        self.url = reverse("logout")
 
     def test_status_code(self):
         response = self.client.get(self.url)
